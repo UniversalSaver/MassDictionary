@@ -8,12 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var myImage = "Nothing"
+    @State private var translations: [TranslationBox] = []
+    
     var body: some View {
+        
+        
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            
+            ZStack {
+                Image(myImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                
+                
+                ForEach(0..<translations.count, id: \.description) { i in
+                    Rectangle()
+                        .path(in: CGRect(x: translations[i].x, y: translations[i].y, width: translations[i].width, height: translations[i].height))
+                        .stroke(Color.red, lineWidth: 4)
+                }
+
+            }
+            
+            Spacer()
+            Button("Show Image & Translate") {
+                withAnimation {
+                    myImage = "Test Image"
+                    
+                    translations.append(TranslationBox(x: 90, y: 335, width: 72, height: 40))
+                    translations.append(TranslationBox(x: 164, y: 335, width: 55, height: 40))
+                    translations.append(TranslationBox(x: 220, y: 335, width: 60, height: 40))
+                    translations.append(TranslationBox(x: 283, y: 335, width: 60, height: 40))
+                }
+                
+            }
+            .padding()
+            .background(Color.orange, in: RoundedRectangle( cornerRadius: 8.0))
         }
         .padding()
     }
