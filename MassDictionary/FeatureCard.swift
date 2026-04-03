@@ -1,5 +1,5 @@
 //
-//  FeaturesCard.swift
+//  FeatureCard.swift
 //  MassDictionary
 //
 //  Created by Nabhan Rashid on 2026-04-02.
