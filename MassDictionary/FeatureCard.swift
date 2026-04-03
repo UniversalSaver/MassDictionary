@@ -17,7 +17,6 @@ struct FeatureCard: View {
                 .font(.largeTitle)
                 .frame(width: 50)
                 .padding(.trailing, 10)
-            
             Text(description)
             
             Spacer()
