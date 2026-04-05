@@ -14,15 +14,28 @@ let gradientColors: [Color] = [
 
 struct ContentView: View {
     
-    @State var changeView: Bool = false
+    @State var showWalkThrough: Bool = true
         
     var body: some View {
         
-        if (!changeView) {
+        if (showWalkThrough) {
             TabView {
                 WelcomePage()
-                FeaturesView(changeView: $changeView)
+                VStack {
+                    FeaturesView()
+                        .padding(.bottom, 50)
+                    
+                    Button("Start Translation", systemImage: "translate") {
+                        withAnimation {
+                            showWalkThrough = false
+                        }
+                    }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 15)
+                        .foregroundStyle(.tint))
+                    .foregroundStyle(.white)
                     .padding(.bottom, 50)
+                }
             }
             .background(Gradient(colors: gradientColors))
             .tabViewStyle(.page)
