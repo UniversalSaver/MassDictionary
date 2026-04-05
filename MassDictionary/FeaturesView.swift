@@ -9,14 +9,17 @@ import SwiftUI
 
 struct FeaturesView: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 30) {
             Text("Features")
                 .font(.title)
                 .fontWeight(.bold)
-                .padding()
+                .padding(.bottom)
+                .padding(.top, 100)
             
             FeatureCard(iconName: "camera.fill", description: "Take pictures of text to be translated word by word")
             FeatureCard(iconName: "text.bubble.fill", description: "Get insight on word-choice")
+            
+            Spacer()
         }
         .padding()
     }
@@ -24,4 +27,7 @@ struct FeaturesView: View {
 
 #Preview {
     FeaturesView()
+        .frame(maxHeight: .infinity)
+        .background(Gradient(colors: gradientColors))
+        .foregroundStyle(.white)
 }
