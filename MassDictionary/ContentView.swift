@@ -13,15 +13,23 @@ let gradientColors: [Color] = [
 ]
 
 struct ContentView: View {
+    
+    @State var changeView: Bool = false
         
     var body: some View {
-        TabView {
-            WelcomePage()
-            FeaturesView()
+        
+        if (!changeView) {
+            TabView {
+                WelcomePage()
+                FeaturesView(changeView: $changeView)
+                    .padding(.bottom, 50)
+            }
+            .background(Gradient(colors: gradientColors))
+            .tabViewStyle(.page)
+            .foregroundStyle(.white)
+        } else {
+            Translator()
         }
-        .background(Gradient(colors: gradientColors))
-        .tabViewStyle(.page)
-        .foregroundStyle(.white)
 
     }
 }
