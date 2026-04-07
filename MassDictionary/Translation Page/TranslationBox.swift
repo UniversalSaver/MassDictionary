@@ -11,12 +11,16 @@ enum WordType {
     case verb, noun, adjective, particle
 }
 
-struct TranslationBox {
+struct TranslationBox: Identifiable {
+    let id = UUID()
     let x: Int
     let y: Int
     let width: Int
     let height: Int
     let type: WordType
+    let translation: String
+    
+    @State var popup: Bool = false
     
     func getColor() -> Color {
         switch self.type {
