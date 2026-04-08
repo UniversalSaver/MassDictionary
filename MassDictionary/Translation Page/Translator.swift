@@ -52,11 +52,19 @@ struct Translator: View {
             .background(Color.orange, in: RoundedRectangle( cornerRadius: 8.0))
             
             ScrollView {
-                Text(currentTranslation)
+                if (currentlyTranslating) {
+                    Text(currentTranslation)
+                }
             }
             .frame(height: 50)
         }
         .padding()
+        .border(.black, width: 4)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            print("Stop Translating")
+            currentlyTranslating = false
+        }
 
     }
 }
