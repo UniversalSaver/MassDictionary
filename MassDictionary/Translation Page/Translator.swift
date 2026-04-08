@@ -34,6 +34,7 @@ struct Translator: View {
                             }
                     }
                 }
+                .border(.white, width: 3)
         
             Spacer()
             
@@ -56,16 +57,18 @@ struct Translator: View {
                     Text(currentTranslation)
                 }
             }
+            .frame(maxWidth: .infinity)
             .frame(height: 50)
+            .border(.white, width: 3)
+            .background(.gray)
         }
         .padding()
-        .border(.black, width: 4)
         .contentShape(Rectangle())
+        .background(.black)
         .onTapGesture {
             print("Stop Translating")
             currentlyTranslating = false
         }
-
     }
 }
 
