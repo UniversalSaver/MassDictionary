@@ -7,7 +7,11 @@
 
 import SwiftUI
 
+
 struct Translator: View {
+    
+    @State var showingCamera = false
+    @State var selectedImage: UIImage?
     
     @State var myImage = "Nothing"
     @State var translations: [TranslationBox] = []
@@ -51,6 +55,16 @@ struct Translator: View {
             }
             .padding()
             .background(Color.orange, in: RoundedRectangle( cornerRadius: 8.0))
+
+            Button(action: {
+                showingCamera = true
+            }) {Text("Take photo")}
+                .padding()
+                .background(.tint, in: RoundedRectangle( cornerRadius: 8.0))
+                .foregroundStyle(.white)
+                .sheet(isPresented: $showingCamera) {
+                    CameraView(image: $selectedImage)
+                }
             
             ScrollView {
                 if (currentlyTranslating) {
