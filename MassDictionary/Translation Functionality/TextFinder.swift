@@ -5,7 +5,28 @@
 //  Created by Nabhan Rashid on 2026-08-13.
 //
 
-func findText() {
+import Vision
+import SwiftUI
+
+func findText(image: UIImage) /*Change to return things*/ {
     
-    // TODO
+    if let actualImage = image.cgImage {
+        
+        let requestHandler = VNImageRequestHandler(cgImage: actualImage)
+        let request = VNRecognizeTextRequest()
+        
+        request.automaticallyDetectsLanguage = false
+        request.recognitionLanguages = ["ja"]
+        
+        do {
+            try requestHandler.perform([request])
+        } catch {
+            print("Unable to process request \(error).")
+        }
+        
+        let recognizedText = request.results?.compactMap() { observation in
+            return observation.topCandidates(1).first?.string
+        }
+    }
+    return
 }
