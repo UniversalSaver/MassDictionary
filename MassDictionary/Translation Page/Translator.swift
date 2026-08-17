@@ -13,7 +13,6 @@ struct Translator: View {
     @State var showingCamera = false
     @State var selectedImage: UIImage?
     
-    @State var myImage = "Nothing"
     @State var translations: [TranslationBox] = []
     
     @State var currentlyTranslating: Bool = false
@@ -22,29 +21,30 @@ struct Translator: View {
     var body: some View {
         VStack {
             
-            Image(myImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .overlay() {
-                    ForEach(translations) { t in
-                        Rectangle()
-                            .path(in: CGRect(x: t.x, y: t.y, width: t.width, height: t.height))
-                            .stroke(t.getColor(), lineWidth: 4)
-                            .fill(t.getColor().opacity(0.5))
-                            .onTapGesture {
-                                print("Pushed \(t.getColor())")
-                                currentTranslation = t.translation
-                                currentlyTranslating = true
-                            }
+            if let validImage = selectedImage {
+                Image(uiImage: validImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .overlay() {
+                        ForEach(translations) { t in
+                            Rectangle()
+                                .path(in: CGRect(x: t.x, y: t.y, width: t.width, height: t.height))
+                                .stroke(t.getColor(), lineWidth: 4)
+                                .fill(t.getColor().opacity(0.5))
+                                .onTapGesture {
+                                    print("Pushed \(t.getColor())")
+                                    currentTranslation = t.translation
+                                    currentlyTranslating = true
+                                }
+                        }
                     }
-                }
-                .border(.white, width: 3)
-        
+                    .border(.white, width: 3)
+            }
             Spacer()
             
             Button("Show Image & Translate") {
                 withAnimation {
-                    myImage = "Test Image"
+                    selectedImage = UIImage(named: "Test Image")
                     
                     translations.append(TranslationBox(x: 90, y: 135, width: 72, height: 40, type: WordType.noun, translation: "Contemporary"))
                     translations.append(TranslationBox(x: 164, y: 135, width: 55, height: 40, type: WordType.adjective, translation: "Japan"))
