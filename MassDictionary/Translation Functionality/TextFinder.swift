@@ -22,11 +22,7 @@ func findText(image: UIImage) /*Change to return things*/ {
             try requestHandler.perform([request])
         } catch {
             print("Unable to process request \(error).")
-        }
-        
-        let recognizedText = request.results?.compactMap() { observation in
-            return observation.topCandidates(1).first?.string
-        }
+        }        
     }
     return
 }
