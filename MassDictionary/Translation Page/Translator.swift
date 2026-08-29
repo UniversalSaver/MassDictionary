@@ -21,6 +21,7 @@ struct Translator: View {
     var body: some View {
         VStack {
             
+            // Display image if valid and not None
             if let validImage = selectedImage {
                 Image(uiImage: validImage)
                     .resizable()
@@ -42,6 +43,7 @@ struct Translator: View {
             }
             Spacer()
             
+            // Button to show the image and translate it (Currently just a test image)
             Button("Show Image & Translate") {
                 withAnimation {
                     selectedImage = UIImage(named: "Test Image")
@@ -56,6 +58,7 @@ struct Translator: View {
             .padding()
             .background(Color.orange, in: RoundedRectangle( cornerRadius: 8.0))
 
+            // Button to take an image using the camera
             Button(action: {
                 showingCamera = true
             }) {Text("Take photo")}
@@ -66,6 +69,7 @@ struct Translator: View {
                     CameraView(image: $selectedImage)
                 }
             
+            // Shows the translation of the current word selected
             ScrollView {
                 if (currentlyTranslating) {
                     Text(currentTranslation)
