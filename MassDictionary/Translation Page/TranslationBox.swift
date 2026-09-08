@@ -11,6 +11,7 @@ enum WordType {
     case verb, noun, adjective, particle
 }
 
+// A translation box with the x, y as the top left corner (?)
 struct TranslationBox: Identifiable {
     let id = UUID()
     let x: Int

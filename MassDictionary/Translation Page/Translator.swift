@@ -13,7 +13,7 @@ struct Translator: View {
     @State var showingCamera = false
     @State var selectedImage: UIImage?
     
-    @State var translations: [TranslationBox] = []
+    @State var translations: [TranslationBox]?
     
     @State var currentlyTranslating: Bool = false
     @State var currentTranslation: String = ""
@@ -22,12 +22,12 @@ struct Translator: View {
         VStack {
             
             // Display image if valid and not None
-            if let validImage = selectedImage {
+            if let validImage = selectedImage, let validTranslations = translations {
                 Image(uiImage: validImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .overlay() {
-                        ForEach(translations) { t in
+                        ForEach(validTranslations) { t in
                             Rectangle()
                                 .path(in: CGRect(x: t.x, y: t.y, width: t.width, height: t.height))
                                 .stroke(t.getColor(), lineWidth: 4)
@@ -47,11 +47,9 @@ struct Translator: View {
             Button("Show Image & Translate") {
                 withAnimation {
                     selectedImage = UIImage(named: "Test Image")
-                    
-                    translations.append(TranslationBox(x: 90, y: 135, width: 72, height: 40, type: WordType.noun, translation: "Contemporary"))
-                    translations.append(TranslationBox(x: 164, y: 135, width: 55, height: 40, type: WordType.adjective, translation: "Japan"))
-                    translations.append(TranslationBox(x: 220, y: 135, width: 60, height: 40, type: WordType.verb, translation: "Haiku"))
-                    translations.append(TranslationBox(x: 283, y: 135, width: 60, height: 40, type: WordType.particle, translation: "Anthology"))
+                    if let validImage = selectedImage {
+                        translations = getTranslationBoxes(image: validImage)
+                    }
                 }
                 
             }
