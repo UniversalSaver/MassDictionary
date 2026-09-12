@@ -27,16 +27,21 @@ struct Translator: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .overlay() {
-                        ForEach(validTranslations) { t in
-                            Rectangle()
-                                .path(in: CGRect(x: t.x, y: t.y, width: t.width, height: t.height))
-                                .stroke(t.getColor(), lineWidth: 4)
-                                .fill(t.getColor().opacity(0.5))
-                                .onTapGesture {
-                                    print("Pushed \(t.getColor())")
-                                    currentTranslation = t.translation
-                                    currentlyTranslating = true
-                                }
+                        GeometryReader { geometry in
+                            ForEach(validTranslations) { t in
+                                Rectangle()
+                                    .path(in: CGRect(x: geometry.size.width * t.x,
+                                                     y: geometry.size.height * t.y,
+                                                     width: geometry.size.width * t.width,
+                                                     height: geometry.size.height * t.height))
+                                    .fill(t.getColor().opacity(0.5))
+                                    .stroke(t.getColor(), lineWidth: 4)
+                                    .onTapGesture {
+                                        print("Pushed \(t.getColor())")
+                                        currentTranslation = t.translation
+                                        currentlyTranslating = true
+                                    }
+                            }
                         }
                     }
                     .border(.white, width: 3)

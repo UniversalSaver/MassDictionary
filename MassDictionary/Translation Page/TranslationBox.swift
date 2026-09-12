@@ -14,10 +14,10 @@ enum WordType {
 // A translation box with the x, y as the top left corner (?)
 struct TranslationBox: Identifiable {
     let id = UUID()
-    let x: Int
-    let y: Int
-    let width: Int
-    let height: Int
+    let x: CGFloat
+    let y: CGFloat
+    let width: CGFloat
+    let height: CGFloat
     let type: WordType
     let translation: String
     

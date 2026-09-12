@@ -66,14 +66,11 @@ class TranslationBuilder {
             for word in words {
                 do {
                     if let rectangle: VNRectangleObservation = try VNText.boundingBox(for: word) {
-                        outputData.append(TranslationBox(x: Int(rectangle.topLeft.x), y: Int(rectangle.topLeft.y),
-                                                         width: Int(rectangle.topRight.x) - Int(rectangle.topLeft.x),
-                                                         height: Int(rectangle.bottomLeft.y) - Int(rectangle.topLeft.y), type: WordType.adjective, translation: "owo"))
-                        print("word: \(word)")
-                        print("value: \(VNText.string[word])")
-                        print("x: \(rectangle.topLeft)")
-                        print("y: \(rectangle.topLeft)")
-
+                        
+                        // A difference in how it's processed requires the "1 - " as the bounding box is from bottom left, while rendering is top left.
+                        outputData.append(TranslationBox(x: rectangle.topLeft.x, y: 1 - rectangle.topLeft.y,
+                                                         width: rectangle.topRight.x - rectangle.bottomLeft.x,
+                                                         height: rectangle.topRight.y - rectangle.bottomLeft.y, type: WordType.adjective, translation: "Lorem Ipsum"))
                     }
                     
                 } catch {
